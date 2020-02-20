@@ -28,7 +28,7 @@ estaciones_urls <-
   str_remove("/.*") %>% 
   str_replace_all(" ", "_") %>% 
   paste0("https://es.wikipedia.org/wiki/", ., "_(estación)") %>% 
-  str_replace("(Tasqueña|Sevilla|San_(Antonio|Joaquín)|Portales|Candelaria)_\\(estación\\)", 
+  str_replace("(Tasqueña|Sevilla|San_(Antonio|Joaquín)|Portales|Candelaria|Bellas Artes)_\\(estación\\)", 
               "\\1_(estación_del_Metro_de_Ciudad_de_México)") %>% 
   str_replace("(Universidad)_\\(estación\\)", 
               "\\1_(estación_del_Metro_de_la_Ciudad_de_México)")
@@ -45,10 +45,11 @@ estaciones_coords <-
       str_trim()
   }) %>% 
   tibble(coords = .) %>% 
-  separate(coords, into = c("lng", "lat"), sep = ",") %>% 
+  separate(coords, into = c("lat", "lng"), sep = ",") %>% 
   mutate_all(as.numeric) %>% 
-  mutate(estacion = estaciones_nombres$estacion) %>% 
-  select(estacion, lng, lat) %>%
+  mutate(estacion = estaciones_nombres$estacion,
+         coord = paste(lat, lng, sep = ",")) %>% 
+  select(estacion, lat, lng, coord) %>%
   data.frame()
 
 write_feather(estaciones_coords, "estaciones_coords.feather")
