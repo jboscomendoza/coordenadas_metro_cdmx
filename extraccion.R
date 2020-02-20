@@ -28,7 +28,7 @@ estaciones_urls <-
   str_remove("/.*") %>% 
   str_replace_all(" ", "_") %>% 
   paste0("https://es.wikipedia.org/wiki/", ., "_(estación)") %>% 
-  str_replace("(Tasqueña|Sevilla|San_(Antonio|Joaquín)|Portales|Candelaria|Bellas Artes)_\\(estación\\)", 
+  str_replace("(Tasqueña|Sevilla|San_(Antonio|Joaquín)|Portales|Candelaria|Bellas_Artes)_\\(estación\\)", 
               "\\1_(estación_del_Metro_de_Ciudad_de_México)") %>% 
   str_replace("(Universidad)_\\(estación\\)", 
               "\\1_(estación_del_Metro_de_la_Ciudad_de_México)")
